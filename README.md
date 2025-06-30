@@ -2,7 +2,11 @@
 
 ![Demo App](/frontend/public/screenshot-for-readme.png)
 
-Highlights:
+# 🌐[Visit Streamify](https://streamify-9ikq.onrender.com)
+
+---
+
+## Highlights:
 
 - 🌐 Real-time Messaging with Typing Indicators & Reactions
 - 📹 1-on-1 and Group Video Calls with Screen Sharing & Recording
