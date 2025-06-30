@@ -17,6 +17,38 @@ Highlights:
 
 ---
 
+## Project Structure
+
+```
+Backend/
+  src/
+    controllers/
+    lib/
+    middlewares/
+    models/
+    routes/
+    server.js
+  package.json
+  .env
+
+Frontend/
+  public/
+  src/
+    components/
+    constants/
+    hooks/
+    lib/
+    pages/
+    store/
+    App.jsx
+    main.jsx
+  index.html
+  package.json
+  .env
+  tailwind.config.js
+  postcss.config.js
+```
+
 ## 🧪 .env Setup
 
 ### Backend (`/backend`)
