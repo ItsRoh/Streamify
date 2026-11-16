@@ -22,7 +22,7 @@ export const signup =async (req, res) => {
     }
 
     const index=Math.floor(Math.random() * 100)+1;// generate a number between 1 and 100
-    const randomAvatar=`https://avatar.iran.liara.run/public/${index}.png`;
+    const randomAvatar=`https://api.dicebear.com/9.x/avataaars/svg?seed=${index}`;
 
     const newUser = new User({
       fullName,

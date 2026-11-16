@@ -83,7 +83,7 @@ const ChatPage = () => {
 
         await currChannel.watch();//listen for any incoming changes
 
-        setChatClient(client);
+        setChatClient(client);// 
         setChannel(currChannel);
       } catch (error) {
         console.error("Error initializing chat:", error);

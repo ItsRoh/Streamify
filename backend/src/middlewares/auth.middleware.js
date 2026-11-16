@@ -12,7 +12,7 @@ export const protectRoute = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    //in token w ehave a payload with userId
+    //in token we have a payload with userId
     if (!decoded) {
       return res.status(403).json({ message: 'Forbidden access' });
     }
