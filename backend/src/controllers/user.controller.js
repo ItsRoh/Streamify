@@ -180,3 +180,50 @@ export const getOutgoingFriendRequests =async (req,res) => {
     res.status(500).json({message:"Internal Server Error"});
   }
 }
+
+import { upsertStreamUser } from "../lib/stream.js";
+
+export const updateProfile = async (req, res) => {
+  try {
+    const { fullName, bio, nativeLanguage, learningLanguage, location, profilePic } = req.body;
+
+    // Build update object with only provided fields
+    const updateData = {};
+    if (fullName)         updateData.fullName = fullName;
+    if (bio !== undefined) updateData.bio = bio;
+    if (nativeLanguage)   updateData.nativeLanguage = nativeLanguage;
+    if (learningLanguage) updateData.learningLanguage = learningLanguage;
+    if (location !== undefined) updateData.location = location;
+    if (profilePic)       updateData.profilePic = profilePic;
+
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({ message: "No fields provided to update" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      updateData,
+      { new: true }   // return the updated document
+    ).select("-password");
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Keep Stream in sync with the new name / avatar
+    try {
+      await upsertStreamUser({
+        id: updatedUser._id.toString(),
+        name: updatedUser.fullName,
+        image: updatedUser.profilePic || "",
+      });
+    } catch (streamErr) {
+      console.error("Error syncing profile to Stream:", streamErr.message);
+    }
+
+    res.status(200).json({ message: "Profile updated successfully", user: updatedUser });
+  } catch (error) {
+    console.error("Error updating profile:", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

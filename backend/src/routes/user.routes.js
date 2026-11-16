@@ -5,7 +5,7 @@ const router = express.Router();
 import { protectRoute } from '../middlewares/auth.middleware.js';
 router.use(protectRoute); // Protect all routes in this router
 
-import { getRecommendedUsers, getMyFriends, sendFriendRequest, acceptFriendRequest, getFriendRequests, getOutgoingFriendRequests } from '../controllers/user.controller.js';
+import { getRecommendedUsers, getMyFriends, sendFriendRequest, acceptFriendRequest, getFriendRequests, getOutgoingFriendRequests, updateProfile } from '../controllers/user.controller.js';
 router.get("/",getRecommendedUsers);
 router.get("/friends",getMyFriends);
 
@@ -15,5 +15,8 @@ router.put("/friend-request/:id/accept",acceptFriendRequest);
 
 router.get("/friend-requests",getFriendRequests);
 router.get("/outgoing-friend-requests",getOutgoingFriendRequests);
+
+// Profile update
+router.put("/update-profile", updateProfile);
 
 export default router;

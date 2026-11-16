@@ -6,7 +6,14 @@ const useAuthUser = () => {
   //tanstack query
   const {data:authData,isLoading,error}=useQuery({//data is renamed to authData
     queryKey:["authUser"],//will be used when we want to refetch the data from api
-    queryFn: getMe,//result gets loaded into -> const "authData"
+    queryFn: async () => {
+      try {
+        const res = await getMe();
+        return res;
+      } catch (err) {
+        return null;
+      }
+    },
     retry:false// don't try to fetch from server multiple times if not got at once
   })
   const authUser=authData?.user;// '/me' route returns 'user'
